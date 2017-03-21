@@ -145,4 +145,20 @@ final class Configuration implements ConfigurationInterface
             ->end()
         ;
     }
+
+    /**
+     * @param ArrayNodeDefinition $node
+     */
+    private function addSitemapSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('sitemap')
+                    ->children()
+                        ->scalarNode('template')->defaultValue('@SyliusCore/Sitemap/show.xml.twig')->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
 }
