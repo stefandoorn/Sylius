@@ -64,6 +64,11 @@ final class SyliusCoreExtension extends AbstractResourceExtension implements Pre
         if ('test' === $env || 'test_cached' === $env) {
             $loader->load('test_services.xml');
         }
+
+        $container->setParameter('sylius.sitemap', $config['sitemap']);
+        $container->setParameter('sylius.sitemap_template', $config['sitemap']['template']);
+
+        $this->overwriteRuleFactory($container);
     }
 
     /**

@@ -60,5 +60,14 @@ sylius_shop_switch_locale:
     defaults:
         _controller: sylius.controller.shop.locale_switch:switchAction
 
+sylius_sitemap:
+    path: /sitemap.{_format}
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.sitemap:showAction
+        _format: xml
+    requirements:
+        _format: xml
+
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"

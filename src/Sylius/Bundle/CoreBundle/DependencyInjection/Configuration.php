@@ -46,6 +46,7 @@ final class Configuration implements ConfigurationInterface
         ;
 
         $this->addResourcesSection($rootNode);
+        $this->addSitemapSection($rootNode);
 
         return $treeBuilder;
     }
@@ -123,6 +124,22 @@ final class Configuration implements ConfigurationInterface
                                 ->end()
                             ->end()
                         ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    /**
+     * @param ArrayNodeDefinition $node
+     */
+    private function addSitemapSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('sitemap')
+                    ->children()
+                        ->scalarNode('template')->defaultValue('@SyliusCore/Sitemap/show.xml.twig')->end()
                     ->end()
                 ->end()
             ->end()
