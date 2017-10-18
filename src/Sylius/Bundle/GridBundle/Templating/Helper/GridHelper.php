@@ -80,9 +80,9 @@ class GridHelper extends Helper
      *
      * @return mixed
      */
-    public function renderMassAction(GridView $gridView, Action $action, $data = null)
+    public function renderBulkAction(GridView $gridView, Action $action, $data = null)
     {
-        return $this->gridRenderer->renderMassAction($gridView, $action, $data);
+        return $this->gridRenderer->renderBulkAction($gridView, $action, $data);
     }
 
     /**

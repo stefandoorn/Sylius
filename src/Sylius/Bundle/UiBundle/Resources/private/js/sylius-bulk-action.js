@@ -11,23 +11,19 @@
     'use strict';
 
     $.fn.extend({
-        massActionUrl: function() {
+        bulkActionUrl: function() {
             return this.each(function() {
                 return $(this).on('click', function(event) {
                     event.preventDefault();
 
-                    // Get base URL
                     var url = $(this).attr('href');
 
-                    // Get IDs from page
-                    var ids = $('input.mass-select-checkbox:checked').map(function() {
+                    var ids = $('input.bulk-select-checkbox:checked').map(function() {
                         return this.value;
                     }).get();
 
-                    // Set URL to confirmation box
                     $('#confirmation-button').attr('href', [url, '?', $.param({ids: ids})].join(''));
 
-                    // And open the confirmation box
                     return $('#confirmation-modal').modal('show');
                 });
             });
