@@ -473,13 +473,14 @@ class ResourceController extends Controller
         $this->isGrantedOr403($configuration, ResourceActions::BULK_DELETE);
         $resources = $this->resourcesCollectionProvider->get($configuration, $this->repository);
 
+        $this->eventDispatcher->dispatchMultiple(ResourceActions::BULK_DELETE, $configuration, $resources);
+
         foreach ($resources as $resource) {
             $event = $this->eventDispatcher->dispatchPreEvent(ResourceActions::DELETE, $configuration, $resource);
 
             if ($event->isStopped() && !$configuration->isHtmlRequest()) {
                 throw new HttpException($event->getErrorCode(), $event->getMessage());
             }
-
             if ($event->isStopped()) {
                 $this->flashHelper->addFlashFromEvent($configuration, $event);
 
@@ -490,8 +491,22 @@ class ResourceController extends Controller
                 return $this->redirectHandler->redirectToIndex($configuration, $resource);
             }
 
-            $this->repository->remove($resource);
-            $this->eventDispatcher->dispatchPostEvent(ResourceActions::DELETE, $configuration, $resource);
+            try {
+                $this->resourceDeleteHandler->handle($resource, $this->repository);
+            } catch (DeleteHandlingException $exception) {
+                if (!$configuration->isHtmlRequest()) {
+                    return $this->viewHandler->handle(
+                        $configuration,
+                        View::create(null, $exception->getApiResponseCode())
+                    );
+                }
+
+                $this->flashHelper->addErrorFlash($configuration, $exception->getFlash());
+
+                return $this->redirectHandler->redirectToReferer($configuration);
+            }
+
+            $postEvent = $this->eventDispatcher->dispatchPostEvent(ResourceActions::DELETE, $configuration, $resource);
         }
 
         if (!$configuration->isHtmlRequest()) {
@@ -499,6 +514,10 @@ class ResourceController extends Controller
         }
 
         $this->flashHelper->addSuccessFlash($configuration, ResourceActions::BULK_DELETE);
+
+        if (isset($postEvent) && $postEvent->hasResponse()) {
+            return $postEvent->getResponse();
+        }
 
         return $this->redirectHandler->redirectToIndex($configuration);
     }
