@@ -48,27 +48,27 @@ final class TwigGridRenderer implements GridRendererInterface
     /**
      * @var array
      */
-    private $massActionTemplates;
+    private $bulkActionTemplates;
 
     /**
      * @param GridRendererInterface $gridRenderer
      * @param \Twig_Environment $twig
      * @param OptionsParserInterface $optionsParser
      * @param array $actionTemplates
-     * @param array $massActionTemplates
+     * @param array $bulkActionTemplates
      */
     public function __construct(
         GridRendererInterface $gridRenderer,
         \Twig_Environment $twig,
         OptionsParserInterface $optionsParser,
         array $actionTemplates = [],
-        array $massActionTemplates = []
+        array $bulkActionTemplates = []
     ) {
         $this->gridRenderer = $gridRenderer;
         $this->twig = $twig;
         $this->optionsParser = $optionsParser;
         $this->actionTemplates = $actionTemplates;
-        $this->massActionTemplates = $massActionTemplates;
+        $this->bulkActionTemplates = $bulkActionTemplates;
     }
 
     /**
@@ -114,10 +114,10 @@ final class TwigGridRenderer implements GridRendererInterface
     /**
      * {@inheritdoc}
      */
-    public function renderMassAction(GridViewInterface $gridView, Action $action, $data = null): string
+    public function renderBulkAction(GridViewInterface $gridView, Action $action, $data = null): string
     {
         $type = $action->getType();
-        if (!isset($this->massActionTemplates[$type])) {
+        if (!isset($this->bulkActionTemplates[$type])) {
             throw new \InvalidArgumentException(sprintf('Missing template for action type "%s".', $type));
         }
 
@@ -127,7 +127,7 @@ final class TwigGridRenderer implements GridRendererInterface
             $data
         );
 
-        return (string) $this->twig->render($this->massActionTemplates[$type], [
+        return (string) $this->twig->render($this->bulkActionTemplates[$type], [
             'grid' => $gridView,
             'action' => $action,
             'data' => $data,
