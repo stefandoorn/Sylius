@@ -471,15 +471,15 @@ class ResourceController extends Controller
         $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
 
         $this->isGrantedOr403($configuration, ResourceActions::BULK_DELETE);
-        /** @var array $resources */
         $resources = $this->resourcesCollectionProvider->get($configuration, $this->repository);
 
-        foreach($resources as $resource) {
+        foreach ($resources as $resource) {
             $event = $this->eventDispatcher->dispatchPreEvent(ResourceActions::DELETE, $configuration, $resource);
 
             if ($event->isStopped() && !$configuration->isHtmlRequest()) {
                 throw new HttpException($event->getErrorCode(), $event->getMessage());
             }
+
             if ($event->isStopped()) {
                 $this->flashHelper->addFlashFromEvent($configuration, $event);
 

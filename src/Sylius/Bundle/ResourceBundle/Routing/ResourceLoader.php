@@ -91,11 +91,6 @@ final class ResourceLoader implements LoaderInterface
             $routes->add($this->getRouteName($metadata, $configuration, 'create'), $createRoute);
         }
 
-        if (!$isApi && in_array('bulkDelete', $routesToGenerate, true)) {
-            $bulkDeleteRoute = $this->createRoute($metadata, $configuration, $rootPath . 'bulk-delete', 'bulkDelete', ['GET'], $isApi);
-            $routes->add($this->getRouteName($metadata, $configuration, 'bulk_delete'), $bulkDeleteRoute);
-        }
-
         if (in_array('update', $routesToGenerate, true)) {
             $updateRoute = $this->createRoute($metadata, $configuration, $isApi ? $rootPath . $identifier : $rootPath . $identifier . '/edit', 'update', $isApi ? ['PUT', 'PATCH'] : ['GET', 'PUT', 'PATCH'], $isApi);
             $routes->add($this->getRouteName($metadata, $configuration, 'update'), $updateRoute);
@@ -104,6 +99,11 @@ final class ResourceLoader implements LoaderInterface
         if (in_array('show', $routesToGenerate, true)) {
             $showRoute = $this->createRoute($metadata, $configuration, $rootPath . $identifier, 'show', ['GET'], $isApi);
             $routes->add($this->getRouteName($metadata, $configuration, 'show'), $showRoute);
+        }
+
+        if (!$isApi && in_array('bulkDelete', $routesToGenerate, true)) {
+            $bulkDeleteRoute = $this->createRoute($metadata, $configuration, $rootPath . 'bulk-delete', 'bulkDelete', ['DELETE'], $isApi);
+            $routes->add($this->getRouteName($metadata, $configuration, 'bulk_delete'), $bulkDeleteRoute);
         }
 
         if (in_array('delete', $routesToGenerate, true)) {
@@ -207,10 +207,9 @@ final class ResourceLoader implements LoaderInterface
 
         if ($actionName === 'bulkDelete') {
             $defaults['_sylius']['paginate'] = false;
-
             $defaults['_sylius']['repository'] = [
                 'method' => 'findById',
-                'arguments' => ['ids' => '$ids']
+                'arguments' => ['$ids'],
             ];
         }
 
