@@ -1,5 +1,5 @@
 Custom Bulk Action
-=============
+==================
 
 There are certain cases when built-in bulk action types are not enough.
 
