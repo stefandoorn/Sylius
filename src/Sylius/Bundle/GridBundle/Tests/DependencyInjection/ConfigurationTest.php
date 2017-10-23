@@ -77,6 +77,7 @@ final class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'templates' => [
                     'action' => [],
                     'filter' => [],
+                    'bulk_action' => [],
                 ],
             ],
             'templates'
