@@ -1,9 +1,10 @@
 Custom Bulk Action
 ==================
 
-There are certain cases when built-in bulk action types are not enough.
+There are cases where pressing a button per item in a grid is not suitable. And there are also certain
+cases when built-in bulk action types are not enough.
 
-All you need to do is create your own action template and register it for the ``sylius_grid``.
+All you need to do is create your own bulk action template and register it for the ``sylius_grid``.
 
 In the template we will specify the button's icon to be ``export`` and its colour to be ``orange``.
 
@@ -39,3 +40,9 @@ Let's assume that you already have a route for exporting by injecting ids, then 
                     bulk:
                         export:
                             type: export
+                            label: Export Data
+                            options:
+                                link:
+                                    route: app_admin_product_export
+                                    parameters:
+                                        format: csv
