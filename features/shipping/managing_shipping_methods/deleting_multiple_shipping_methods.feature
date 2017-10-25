@@ -11,7 +11,7 @@ Feature: Deleting multiple shipping methods
 
     @ui @javascript
     Scenario: Deleting multiple shipping methods
-        When I browse channels
+        When I browse shipping methods
         And I check the "UPS" shipping method
         And I check also the "FedEx" shipping method
         And I delete them

@@ -5,7 +5,8 @@ Feature: Deleting multiple promotions
     I want to be able to delete multiple promotions from the registry
 
     Background:
-        Given there is a promotion "Christmas sale"
+        Given the store operates on a single channel in "United States"
+        And there is a promotion "Christmas sale"
         And there is also a promotion "New Year sale"
         And there is also a promotion "Easter sale"
         And I am logged in as an administrator
