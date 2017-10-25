@@ -94,16 +94,14 @@ final class LazyOption
                 $objects = $objects->toArray();
             }
 
-            $selectedObjects = [];
-            for (; $amount > 0 && count($objects) > 0; --$amount) {
-                $randomKey = array_rand($objects);
-
-                $selectedObjects[] = $objects[$randomKey];
-
-                unset($objects[$randomKey]);
+            if ($amount > count($objects)) {
+                $amount = count($objects);
             }
 
-            return $selectedObjects;
+            $randomKeys = array_rand($objects, $amount);
+            return array_filter($objects, function ($key) use ($randomKeys) {
+                return in_array($key, $randomKeys);
+            }, ARRAY_FILTER_USE_KEY);
         };
     }
 
