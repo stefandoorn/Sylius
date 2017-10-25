@@ -1,4 +1,4 @@
-@managing_product_attributes
+@managing_product_options
 Feature: Deleting multiple product options
     In order to remove test, obsolete or incorrect product options
     As an Administrator

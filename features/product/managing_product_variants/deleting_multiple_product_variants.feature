@@ -5,7 +5,8 @@ Feature: Deleting multiple product variants
     I want to be able to delete multiple product variants from the product catalog
 
     Background:
-        Given the store has a product "PHP Mug"
+        Given the store operates on a single channel in "United States"
+        And the store has a "PHP Mug" configurable product
         And this product has "Small PHP Mug", "Medium PHP Mug" and "Big PHP Mug" variants
         And I am logged in as an administrator
 
