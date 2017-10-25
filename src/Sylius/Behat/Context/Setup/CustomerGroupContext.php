@@ -19,6 +19,7 @@ use Sylius\Component\Core\Formatter\StringInflector;
 use Sylius\Component\Customer\Model\CustomerGroupInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Webmozart\Assert\Assert;
 
 final class CustomerGroupContext implements Context
 {
@@ -59,6 +60,17 @@ final class CustomerGroupContext implements Context
     public function theStoreHasACustomerGroup($name, $code = null)
     {
         $this->createCustomerGroup($name, $code);
+    }
+
+    /**
+     * @Given the store has customer groups :firstName and :secondName
+     * @Given the store has customer groups :firstName, :secondName and :thirdName
+     */
+    public function theStoreHasCustomerGroups(string ...$names): void
+    {
+        foreach ($names as $name) {
+            $this->theStoreHasACustomerGroup($name);
+        }
     }
 
     /**
