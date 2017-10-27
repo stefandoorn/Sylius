@@ -161,7 +161,7 @@ final class PromotionContext implements Context
      * @Given the store has promotion :promotionName with coupon :couponCode
      * @Given the store has a promotion :promotionName with a coupon :couponCode that is limited to :usageLimit usages
      */
-    public function thereIsPromotionWithCoupon($promotionName, $couponCode, $usageLimit = null)
+    public function thereIsPromotionWithCoupon(string $promotionName, string $couponCode, ?int $usageLimit = null): void
     {
         $coupon = $this->createCoupon($couponCode, $usageLimit);
 
