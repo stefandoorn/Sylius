@@ -212,7 +212,7 @@ final class ZoneContext implements Context
     private function createZone(string $name, ?string $code = null, ?string $scope = Scope::ALL): ZoneInterface
     {
         $zone = $this->zoneFactory->createTyped(ZoneInterface::TYPE_ZONE);
-        $zone->setCode($code ? $code : StringInflector::nameToCode($name));
+        $zone->setCode($code ?? StringInflector::nameToCode($name));
         $zone->setName($name);
         $zone->setScope($scope);
 
