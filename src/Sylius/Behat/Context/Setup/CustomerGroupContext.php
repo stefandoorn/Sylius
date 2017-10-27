@@ -19,7 +19,6 @@ use Sylius\Component\Core\Formatter\StringInflector;
 use Sylius\Component\Customer\Model\CustomerGroupInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Webmozart\Assert\Assert;
 
 final class CustomerGroupContext implements Context
 {

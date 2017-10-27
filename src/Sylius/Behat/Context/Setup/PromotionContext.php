@@ -99,7 +99,7 @@ final class PromotionContext implements Context
      * @Given there is (also) a promotion :promotionName
      * @Given there is a promotion :promotionName identified by :promotionCode code
      */
-    public function thereIsPromotion(string $promotionName, string $promotionCode = null): void
+    public function thereIsPromotion(string $promotionName, ?string $promotionCode = null): void
     {
         $promotion = $this->testPromotionFactory
             ->createForChannel($promotionName, $this->sharedStorage->get('channel'))

@@ -1,8 +1,8 @@
 @managing_tax_rates
 Feature: Deleting multiple tax rates
-    In order to remove test, obsolete or incorrect tax rates
+    In order to remove test, obsolete or incorrect tax rates in an efficient way
     As an Administrator
-    I want to be able to delete multiple tax rates
+    I want to be able to delete multiple tax rates at once
 
     Background:
         Given there is a zone "The Rest of the World" containing all other countries
@@ -12,7 +12,7 @@ Feature: Deleting multiple tax rates
         And I am logged in as an administrator
 
     @ui @javascript
-    Scenario: Deleting multiple tax rates
+    Scenario: Deleting multiple tax rates at once
         When I browse tax rates
         And I check the "Low VAT" tax rate
         And I check also the "High VAT" tax rate
