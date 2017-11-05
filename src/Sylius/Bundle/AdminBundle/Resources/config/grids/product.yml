@@ -98,5 +98,3 @@ sylius_grid:
                 bulk:
                     delete:
                         type: delete
-                    multiselect:
-                        type: multiselect
