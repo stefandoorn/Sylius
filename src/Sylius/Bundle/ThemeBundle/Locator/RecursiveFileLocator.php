@@ -69,6 +69,7 @@ final class RecursiveFileLocator implements FileLocatorInterface
                 $finder = $this->finderFactory->create();
                 $finder
                     ->files()
+                    ->depth('< 2')
                     ->name($name)
                     ->ignoreUnreadableDirs()
                     ->in($path);
